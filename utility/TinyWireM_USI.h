@@ -37,11 +37,20 @@
 #ifndef TinyWireM_USI
 #define TinyWireM_USI
 
+#if defined(__AVR_ATtiny841__)
+#define SDA_PORT PORTA
+#define SDA_PIN PORTA6
+
+#define SCL_PORT PORTA
+#define SCL_PIN PORTA4
+
+#else
 #define SDA_PORT PORTA
 #define SDA_PIN PORTA0
 
 #define SCL_PORT PORTA
 #define SCL_PIN PORTA5
+#endif
 
 #define I2C_TIMEOUT 100
 
@@ -52,7 +61,7 @@
 #endif
 
 #if defined(__AVR_ATtiny841__)
-#define F_CPU 16000000
+//#define F_CPU 16000000
 #endif
 
 #ifndef I2C_CPUFREQ
