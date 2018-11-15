@@ -38,31 +38,28 @@
 #define TinyWireM_USI
 
 #if defined(__AVR_ATtiny841__)
-#define SDA_PORT PORTA
-#define SDA_PIN PORTA6
-
-#define SCL_PORT PORTA
-#define SCL_PIN PORTA4
-
+	#define SDA_PORT PORTA
+	#define SDA_PIN PORTA6
+	#define SCL_PORT PORTA
+	#define SCL_PIN PORTA4
 #else
-#define SDA_PORT PORTA
-#define SDA_PIN PORTA0
-
-#define SCL_PORT PORTA
-#define SCL_PIN PORTA5
+	#define SDA_PORT PORTA
+	#define SDA_PIN PORTA0
+	#define SCL_PORT PORTA
+	#define SCL_PIN PORTA5
 #endif
 
 #define I2C_TIMEOUT 100
 
 #define I2C_FASTMODE 1
 
-#if defined(__AVR_ATtiny84__)
-#define F_CPU 20000000
-#endif
-
-#if defined(__AVR_ATtiny841__)
-//#define F_CPU 16000000
-#endif
+#ifndef F_CPU
+	#if defined(__AVR_ATtiny84__)
+		#define F_CPU 20000000
+	#eif defined(__AVR_ATtiny841__)	
+		#define F_CPU 16000000	
+	#endif
+#endif	
 
 #ifndef I2C_CPUFREQ
 #define I2C_CPUFREQ F_CPU
@@ -124,21 +121,13 @@
 #endif
 
 bool __attribute__ ((noinline)) i2c_init() __attribute__ ((used));
-
 bool __attribute__ ((noinline)) i2c_start(uint8_t addr) __attribute__ ((used));
-
 void  __attribute__ ((noinline)) i2c_start_wait(uint8_t addr) __attribute__ ((used));
-
 bool __attribute__ ((noinline)) i2c_rep_start(uint8_t addr) __attribute__ ((used));
-
 void __attribute__ ((noinline)) i2c_stop() asm("ass_i2c_stop") __attribute__ ((used));
-
 bool __attribute__ ((noinline)) i2c_write(uint8_t value) asm("ass_i2c_write") __attribute__ ((used));
-
 uint8_t __attribute__ ((noinline)) i2c_read(bool last) __attribute__ ((used));
-
 void __attribute__ ((noinline)) i2c_delay_half() asm("ass_i2c_delay_half")  __attribute__ ((used));
-
 void __attribute__ ((noinline)) i2c_wait_scl_high() asm("ass_i2c_wait_scl_high")  __attribute__ ((used));
 
 bool i2c_init() {
